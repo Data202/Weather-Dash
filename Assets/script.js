@@ -2,18 +2,15 @@ $(window).on('load', function () {
     currentLocation();
     checkLocalStorage();
 });
-
+// API Key 
+var APIKey = "f4e255f6ee90a015c4ab5d473e591015";
+var q = "";
+var now = moment();
 //Date
 var currentDate = now.format('YYYY-MM-DD');
 $("#currentDay").text(currentDate);
 
-// API Key
-var APIKey = "bea0ef0db04748f3aca131108232202";
-var q = "";
-var now = moment();
-
-
-//Setting the click function at ID search button
+//Setting the click 
 $("#search-button").on("click", function (event) {
     // Preventing the button from trying to submit the form
     event.preventDefault();
@@ -43,9 +40,9 @@ function createRecentSearchBtn(q) {
     });
 }
 //Function to get weather details 
-// not getting the Api details required 
+// still working on this 
 function getWeather(q) {
-    var queryURL = "http://api.weatherapi.com/v1/sports.json?" + q + "&units=metric&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + q + "&units=metric&appid=" + APIKey;
     $.ajax({
         // gets the current weather info
         url: queryURL,
@@ -74,7 +71,7 @@ function getWeather(q) {
 //function to Display 5 Day forecast
 function displayForecast(c) {
     $.ajax({ // gets the 5 day forecast API
-        url: "http://api.weatherapi.com/v1/forecast.json" + c + "&units=metric&APPID=" + APIKey,
+        url: "https://api.openweathermap.org/data/2.5/forecast?id=" + c + "&units=metric&APPID=" + APIKey,
         method: "GET",
     }).then(function (response) {
         //  Parse response to display forecast for next 5 days underneath current conditions
@@ -121,7 +118,7 @@ function checkLocalStorage() {
         }
     }
 };
-// Set data in Local storage
+// Function to Set data in Local storage
 function saveToLocalStorage(q) {
     var data = localStorage.getItem('queries');
     if (data) {
